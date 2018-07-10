@@ -1,0 +1,12 @@
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\LogEntity.dll.config
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\LogEntity.dll
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\LogEntity.pdb
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\EntityFramework.dll
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\EntityFramework.SqlServer.dll
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\EntityFramework.xml
+D:\AuditLog1.0\AuditLog\LogEntity\bin\Debug\EntityFramework.SqlServer.xml
+D:\AuditLog1.0\AuditLog\LogEntity\obj\Debug\LogEntity.dll
+D:\AuditLog1.0\AuditLog\LogEntity\obj\Debug\LogEntity.pdb
+D:\AuditLog1.0\AuditLog\LogEntity\obj\Debug\LogEntity.csprojAssemblyReference.cache
+D:\AuditLog1.0\AuditLog\LogEntity\obj\Debug\LogEntity.csproj.CoreCompileInputs.cache
+D:\AuditLog1.0\AuditLog\LogEntity\obj\Debug\LogEntity.csproj.CopyComplete

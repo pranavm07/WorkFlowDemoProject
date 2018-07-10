@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="AuditLogDbEntities">
+    <EntitySetMapping Name="Allergies">
+      <EntityTypeMapping TypeName="AuditLogDbModel.Allergy">
+        <MappingFragment StoreEntitySet="Allergy">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AllergistAddress" ColumnName="AllergistAddress" />
+          <ScalarProperty Name="Allergist" ColumnName="Allergist" />
+          <ScalarProperty Name="AllergyID" ColumnName="AllergyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuditLogs">
+      <EntityTypeMapping TypeName="AuditLogDbModel.AuditLog">
+        <MappingFragment StoreEntitySet="AuditLog">
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="NewValueDesc" ColumnName="NewValueDesc" />
+          <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+          <ScalarProperty Name="OldvalueDesc" ColumnName="OldvalueDesc" />
+          <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+          <ScalarProperty Name="AuditConfigId" ColumnName="AuditConfigId" />
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="AuditLogDbModel.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genders">
+      <EntityTypeMapping TypeName="AuditLogDbModel.Gender">
+        <MappingFragment StoreEntitySet="Gender">
+          <ScalarProperty Name="GenderDesc" ColumnName="GenderDesc" />
+          <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mast_AuditSchema">
+      <EntityTypeMapping TypeName="AuditLogDbModel.Mast_AuditSchema">
+        <MappingFragment StoreEntitySet="Mast_AuditSchema">
+          <ScalarProperty Name="LookupDescription" ColumnName="LookupDescription" />
+          <ScalarProperty Name="LookupId" ColumnName="LookupId" />
+          <ScalarProperty Name="LookupTable" ColumnName="LookupTable" />
+          <ScalarProperty Name="IsLookup" ColumnName="IsLookup" />
+          <ScalarProperty Name="IsAuditable" ColumnName="IsAuditable" />
+          <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+          <ScalarProperty Name="Entity" ColumnName="Entity" />
+          <ScalarProperty Name="ParentEntity" ColumnName="ParentEntity" />
+          <ScalarProperty Name="PracticeID" ColumnName="PracticeID" />
+          <ScalarProperty Name="ConfigId" ColumnName="ConfigId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAddresses">
+      <EntityTypeMapping TypeName="AuditLogDbModel.PAddress">
+        <MappingFragment StoreEntitySet="PAddress">
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Line3" ColumnName="Line3" />
+          <ScalarProperty Name="Line2" ColumnName="Line2" />
+          <ScalarProperty Name="Line1" ColumnName="Line1" />
+          <ScalarProperty Name="PAddressId" ColumnName="PAddressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="AuditLogDbModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="ResidenceAddress" ColumnName="ResidenceAddress" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientInfoes">
+      <EntityTypeMapping TypeName="AuditLogDbModel.PatientInfo">
+        <MappingFragment StoreEntitySet="PatientInfo">
+          <ScalarProperty Name="PatientGender" ColumnName="PatientGender" />
+          <ScalarProperty Name="PatientAddress" ColumnName="PatientAddress" />
+          <ScalarProperty Name="PatientContactNo" ColumnName="PatientContactNo" />
+          <ScalarProperty Name="PatientAge" ColumnName="PatientAge" />
+          <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+          <ScalarProperty Name="PatientInfoId" ColumnName="PatientInfoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

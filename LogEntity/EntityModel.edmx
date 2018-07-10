@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Allergy">
+          <Key>
+            <PropertyRef Name="AllergyID" />
+          </Key>
+          <Property Name="AllergyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Allergist" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="AllergistAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AuditConfigId" Type="uniqueidentifier" />
+          <Property Name="EntityName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FieldName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OldValue" Type="varchar" MaxLength="50" />
+          <Property Name="OldvalueDesc" Type="varchar" MaxLength="50" />
+          <Property Name="NewValue" Type="varchar" MaxLength="50" />
+          <Property Name="NewValueDesc" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+          <Property Name="TransactionType" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GenderDesc" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Mast_AuditSchema">
+          <Key>
+            <PropertyRef Name="ConfigId" />
+          </Key>
+          <Property Name="ConfigId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PracticeID" Type="uniqueidentifier" />
+          <Property Name="ParentEntity" Type="varchar" MaxLength="20" />
+          <Property Name="Entity" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AttributeName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="IsAuditable" Type="bit" Nullable="false" />
+          <Property Name="IsLookup" Type="bit" Nullable="false" />
+          <Property Name="LookupTable" Type="varchar" MaxLength="20" />
+          <Property Name="LookupId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LookupDescription" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PAddress">
+          <Key>
+            <PropertyRef Name="PAddressId" />
+          </Key>
+          <Property Name="PAddressId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Line1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Line2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Line3" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="20" />
+          <Property Name="Lastname" Type="varchar" MaxLength="20" />
+          <Property Name="Age" Type="int" />
+          <Property Name="ResidenceAddress" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PatientInfo">
+          <Key>
+            <PropertyRef Name="PatientInfoId" />
+          </Key>
+          <Property Name="PatientInfoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PatientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PatientAge" Type="nvarchar" MaxLength="3" />
+          <Property Name="PatientContactNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="PatientAddress" Type="uniqueidentifier" />
+          <Property Name="PatientGender" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK__AuditLog__AuditC__398D8EEE">
+          <End Role="Mast_AuditSchema" Type="Self.Mast_AuditSchema" Multiplicity="0..1" />
+          <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mast_AuditSchema">
+              <PropertyRef Name="ConfigId" />
+            </Principal>
+            <Dependent Role="AuditLog">
+              <PropertyRef Name="AuditConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PAddress__City__30F848ED">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PAddress" Type="Self.PAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PAddress">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientIn__Patie__31EC6D26">
+          <End Role="PAddress" Type="Self.PAddress" Multiplicity="0..1" />
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAddress">
+              <PropertyRef Name="PAddressId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="PatientAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientIn__Patie__32E0915F">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="PatientGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="Allergy" EntityType="Self.Allergy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mast_AuditSchema" EntityType="Self.Mast_AuditSchema" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAddress" EntityType="Self.PAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AuditLog__AuditC__398D8EEE" Association="Self.FK__AuditLog__AuditC__398D8EEE">
+            <End Role="Mast_AuditSchema" EntitySet="Mast_AuditSchema" />
+            <End Role="AuditLog" EntitySet="AuditLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PAddress__City__30F848ED" Association="Self.FK__PAddress__City__30F848ED">
+            <End Role="City" EntitySet="City" />
+            <End Role="PAddress" EntitySet="PAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientIn__Patie__31EC6D26" Association="Self.FK__PatientIn__Patie__31EC6D26">
+            <End Role="PAddress" EntitySet="PAddress" />
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientIn__Patie__32E0915F" Association="Self.FK__PatientIn__Patie__32E0915F">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AuditLogDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AuditLogDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Allergies" EntityType="AuditLogDbModel.Allergy" />
+          <EntitySet Name="AuditLogs" EntityType="AuditLogDbModel.AuditLog" />
+          <EntitySet Name="Cities" EntityType="AuditLogDbModel.City" />
+          <EntitySet Name="Genders" EntityType="AuditLogDbModel.Gender" />
+          <EntitySet Name="Mast_AuditSchema" EntityType="AuditLogDbModel.Mast_AuditSchema" />
+          <EntitySet Name="PAddresses" EntityType="AuditLogDbModel.PAddress" />
+          <EntitySet Name="Patients" EntityType="AuditLogDbModel.Patient" />
+          <EntitySet Name="PatientInfoes" EntityType="AuditLogDbModel.PatientInfo" />
+          <AssociationSet Name="FK__AuditLog__AuditC__398D8EEE" Association="AuditLogDbModel.FK__AuditLog__AuditC__398D8EEE">
+            <End Role="Mast_AuditSchema" EntitySet="Mast_AuditSchema" />
+            <End Role="AuditLog" EntitySet="AuditLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PAddress__City__30F848ED" Association="AuditLogDbModel.FK__PAddress__City__30F848ED">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PAddress" EntitySet="PAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientIn__Patie__32E0915F" Association="AuditLogDbModel.FK__PatientIn__Patie__32E0915F">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientIn__Patie__31EC6D26" Association="AuditLogDbModel.FK__PatientIn__Patie__31EC6D26">
+            <End Role="PAddress" EntitySet="PAddresses" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Allergy">
+          <Key>
+            <PropertyRef Name="AllergyID" />
+          </Key>
+          <Property Name="AllergyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Allergist" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="AllergistAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Guid" Nullable="false" />
+          <Property Name="AuditConfigId" Type="Guid" />
+          <Property Name="EntityName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FieldName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OldvalueDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NewValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NewValueDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TransactionType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mast_AuditSchema" Relationship="AuditLogDbModel.FK__AuditLog__AuditC__398D8EEE" FromRole="AuditLog" ToRole="Mast_AuditSchema" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Guid" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PAddresses" Relationship="AuditLogDbModel.FK__PAddress__City__30F848ED" FromRole="City" ToRole="PAddress" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="Guid" Nullable="false" />
+          <Property Name="GenderDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PatientInfoes" Relationship="AuditLogDbModel.FK__PatientIn__Patie__32E0915F" FromRole="Gender" ToRole="PatientInfo" />
+        </EntityType>
+        <EntityType Name="Mast_AuditSchema">
+          <Key>
+            <PropertyRef Name="ConfigId" />
+          </Key>
+          <Property Name="ConfigId" Type="Guid" Nullable="false" />
+          <Property Name="PracticeID" Type="Guid" />
+          <Property Name="ParentEntity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Entity" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AttributeName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IsAuditable" Type="Boolean" Nullable="false" />
+          <Property Name="IsLookup" Type="Boolean" Nullable="false" />
+          <Property Name="LookupTable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LookupId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LookupDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuditLogs" Relationship="AuditLogDbModel.FK__AuditLog__AuditC__398D8EEE" FromRole="Mast_AuditSchema" ToRole="AuditLog" />
+        </EntityType>
+        <EntityType Name="PAddress">
+          <Key>
+            <PropertyRef Name="PAddressId" />
+          </Key>
+          <Property Name="PAddressId" Type="Guid" Nullable="false" />
+          <Property Name="Line1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Line2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Line3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Guid" />
+          <NavigationProperty Name="City1" Relationship="AuditLogDbModel.FK__PAddress__City__30F848ED" FromRole="PAddress" ToRole="City" />
+          <NavigationProperty Name="PatientInfoes" Relationship="AuditLogDbModel.FK__PatientIn__Patie__31EC6D26" FromRole="PAddress" ToRole="PatientInfo" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="ResidenceAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PatientInfo">
+          <Key>
+            <PropertyRef Name="PatientInfoId" />
+          </Key>
+          <Property Name="PatientInfoId" Type="Guid" Nullable="false" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientAge" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="PatientContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PatientAddress" Type="Guid" />
+          <Property Name="PatientGender" Type="Guid" />
+          <NavigationProperty Name="Gender" Relationship="AuditLogDbModel.FK__PatientIn__Patie__32E0915F" FromRole="PatientInfo" ToRole="Gender" />
+          <NavigationProperty Name="PAddress" Relationship="AuditLogDbModel.FK__PatientIn__Patie__31EC6D26" FromRole="PatientInfo" ToRole="PAddress" />
+        </EntityType>
+        <Association Name="FK__AuditLog__AuditC__398D8EEE">
+          <End Type="AuditLogDbModel.Mast_AuditSchema" Role="Mast_AuditSchema" Multiplicity="0..1" />
+          <End Type="AuditLogDbModel.AuditLog" Role="AuditLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mast_AuditSchema">
+              <PropertyRef Name="ConfigId" />
+            </Principal>
+            <Dependent Role="AuditLog">
+              <PropertyRef Name="AuditConfigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PAddress__City__30F848ED">
+          <End Type="AuditLogDbModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="AuditLogDbModel.PAddress" Role="PAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PAddress">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientIn__Patie__32E0915F">
+          <End Type="AuditLogDbModel.Gender" Role="Gender" Multiplicity="0..1" />
+          <End Type="AuditLogDbModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="PatientGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientIn__Patie__31EC6D26">
+          <End Type="AuditLogDbModel.PAddress" Role="PAddress" Multiplicity="0..1" />
+          <End Type="AuditLogDbModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAddress">
+              <PropertyRef Name="PAddressId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="PatientAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="AuditLogDbEntities" >
+          <EntitySetMapping Name="Allergies">
+            <EntityTypeMapping TypeName="AuditLogDbModel.Allergy">
+              <MappingFragment StoreEntitySet="Allergy">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AllergistAddress" ColumnName="AllergistAddress" />
+                <ScalarProperty Name="Allergist" ColumnName="Allergist" />
+                <ScalarProperty Name="AllergyID" ColumnName="AllergyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="AuditLogDbModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NewValueDesc" ColumnName="NewValueDesc" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldvalueDesc" ColumnName="OldvalueDesc" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="AuditConfigId" ColumnName="AuditConfigId" />
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="AuditLogDbModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="AuditLogDbModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderDesc" ColumnName="GenderDesc" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mast_AuditSchema">
+            <EntityTypeMapping TypeName="AuditLogDbModel.Mast_AuditSchema">
+              <MappingFragment StoreEntitySet="Mast_AuditSchema">
+                <ScalarProperty Name="LookupDescription" ColumnName="LookupDescription" />
+                <ScalarProperty Name="LookupId" ColumnName="LookupId" />
+                <ScalarProperty Name="LookupTable" ColumnName="LookupTable" />
+                <ScalarProperty Name="IsLookup" ColumnName="IsLookup" />
+                <ScalarProperty Name="IsAuditable" ColumnName="IsAuditable" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="ParentEntity" ColumnName="ParentEntity" />
+                <ScalarProperty Name="PracticeID" ColumnName="PracticeID" />
+                <ScalarProperty Name="ConfigId" ColumnName="ConfigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAddresses">
+            <EntityTypeMapping TypeName="AuditLogDbModel.PAddress">
+              <MappingFragment StoreEntitySet="PAddress">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Line3" ColumnName="Line3" />
+                <ScalarProperty Name="Line2" ColumnName="Line2" />
+                <ScalarProperty Name="Line1" ColumnName="Line1" />
+                <ScalarProperty Name="PAddressId" ColumnName="PAddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="AuditLogDbModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="ResidenceAddress" ColumnName="ResidenceAddress" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoes">
+            <EntityTypeMapping TypeName="AuditLogDbModel.PatientInfo">
+              <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="PatientGender" ColumnName="PatientGender" />
+                <ScalarProperty Name="PatientAddress" ColumnName="PatientAddress" />
+                <ScalarProperty Name="PatientContactNo" ColumnName="PatientContactNo" />
+                <ScalarProperty Name="PatientAge" ColumnName="PatientAge" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="PatientInfoId" ColumnName="PatientInfoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

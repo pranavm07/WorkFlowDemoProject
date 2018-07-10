@@ -1,0 +1,16 @@
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\DataEngine.dll
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\DataEngine.pdb
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.dll
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.xml
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+D:\AuditLog1.0\AuditLog\DataEngine\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\AuditLog1.0\AuditLog\DataEngine\obj\Debug\DataEngine.csprojAssemblyReference.cache
+D:\AuditLog1.0\AuditLog\DataEngine\obj\Debug\DataEngine.csproj.CoreCompileInputs.cache
+D:\AuditLog1.0\AuditLog\DataEngine\obj\Debug\DataEngine.csproj.CopyComplete
+D:\AuditLog1.0\AuditLog\DataEngine\obj\Debug\DataEngine.dll
+D:\AuditLog1.0\AuditLog\DataEngine\obj\Debug\DataEngine.pdb

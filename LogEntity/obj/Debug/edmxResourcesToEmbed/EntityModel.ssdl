@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Allergy">
+    <Key>
+      <PropertyRef Name="AllergyID" />
+    </Key>
+    <Property Name="AllergyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Allergist" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="AllergistAddress" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AuditLog">
+    <Key>
+      <PropertyRef Name="LogID" />
+    </Key>
+    <Property Name="LogID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AuditConfigId" Type="uniqueidentifier" />
+    <Property Name="EntityName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FieldName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="OldValue" Type="varchar" MaxLength="50" />
+    <Property Name="OldvalueDesc" Type="varchar" MaxLength="50" />
+    <Property Name="NewValue" Type="varchar" MaxLength="50" />
+    <Property Name="NewValueDesc" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+    <Property Name="TransactionType" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="GenderId" />
+    </Key>
+    <Property Name="GenderId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GenderDesc" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Mast_AuditSchema">
+    <Key>
+      <PropertyRef Name="ConfigId" />
+    </Key>
+    <Property Name="ConfigId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PracticeID" Type="uniqueidentifier" />
+    <Property Name="ParentEntity" Type="varchar" MaxLength="20" />
+    <Property Name="Entity" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AttributeName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="IsAuditable" Type="bit" Nullable="false" />
+    <Property Name="IsLookup" Type="bit" Nullable="false" />
+    <Property Name="LookupTable" Type="varchar" MaxLength="20" />
+    <Property Name="LookupId" Type="nvarchar" MaxLength="50" />
+    <Property Name="LookupDescription" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PAddress">
+    <Key>
+      <PropertyRef Name="PAddressId" />
+    </Key>
+    <Property Name="PAddressId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Line1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Line2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Line3" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Firstname" Type="varchar" MaxLength="20" />
+    <Property Name="Lastname" Type="varchar" MaxLength="20" />
+    <Property Name="Age" Type="int" />
+    <Property Name="ResidenceAddress" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PatientInfo">
+    <Key>
+      <PropertyRef Name="PatientInfoId" />
+    </Key>
+    <Property Name="PatientInfoId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PatientName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PatientAge" Type="nvarchar" MaxLength="3" />
+    <Property Name="PatientContactNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="PatientAddress" Type="uniqueidentifier" />
+    <Property Name="PatientGender" Type="uniqueidentifier" />
+  </EntityType>
+  <Association Name="FK__AuditLog__AuditC__398D8EEE">
+    <End Role="Mast_AuditSchema" Type="Self.Mast_AuditSchema" Multiplicity="0..1" />
+    <End Role="AuditLog" Type="Self.AuditLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mast_AuditSchema">
+        <PropertyRef Name="ConfigId" />
+      </Principal>
+      <Dependent Role="AuditLog">
+        <PropertyRef Name="AuditConfigId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PAddress__City__30F848ED">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="PAddress" Type="Self.PAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="PAddress">
+        <PropertyRef Name="City" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientIn__Patie__31EC6D26">
+    <End Role="PAddress" Type="Self.PAddress" Multiplicity="0..1" />
+    <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PAddress">
+        <PropertyRef Name="PAddressId" />
+      </Principal>
+      <Dependent Role="PatientInfo">
+        <PropertyRef Name="PatientAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PatientIn__Patie__32E0915F">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+    <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="GenderId" />
+      </Principal>
+      <Dependent Role="PatientInfo">
+        <PropertyRef Name="PatientGender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StoreContainer">
+    <EntitySet Name="Allergy" EntityType="Self.Allergy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mast_AuditSchema" EntityType="Self.Mast_AuditSchema" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PAddress" EntityType="Self.PAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AuditLog__AuditC__398D8EEE" Association="Self.FK__AuditLog__AuditC__398D8EEE">
+      <End Role="Mast_AuditSchema" EntitySet="Mast_AuditSchema" />
+      <End Role="AuditLog" EntitySet="AuditLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PAddress__City__30F848ED" Association="Self.FK__PAddress__City__30F848ED">
+      <End Role="City" EntitySet="City" />
+      <End Role="PAddress" EntitySet="PAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientIn__Patie__31EC6D26" Association="Self.FK__PatientIn__Patie__31EC6D26">
+      <End Role="PAddress" EntitySet="PAddress" />
+      <End Role="PatientInfo" EntitySet="PatientInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PatientIn__Patie__32E0915F" Association="Self.FK__PatientIn__Patie__32E0915F">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="PatientInfo" EntitySet="PatientInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
